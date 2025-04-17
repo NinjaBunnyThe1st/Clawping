@@ -27,14 +27,29 @@ func fart_vr():
 
 func set_keys():
 	
-	var ev = InputEventJoypadButton.new()
-	ev.button_index = 7
-	InputMap.action_add_event("vr_switch_hands", ev)
+	var ev = InputEventAction.new()
+	ev.action = "trigger_click"
+	InputMap.action_add_event("click", ev)
 	
+	ev = InputEventAction.new()
+	ev.action = "grip_click"
+	InputMap.action_add_event("pause", ev)
+	
+	ev = InputEventAction.new()
+	ev.action = "by_button"
+	InputMap.action_add_event("back", ev)
+	
+	ev = InputEventJoypadMotion.new()
+	ev.axis = "aim_pose"
+	InputMap.action_add_event("aim", ev)
 	
 #Main
-func fart():
-	var interface = XRServer.find_interface("OpenVR")
-	if interface:
-		v = interface
-		Clawping.fart_vr()
+func fart(s:int):
+	match(s):
+		0:
+			var interface = XRServer.find_interface("OpenVR")
+			if interface:
+				v = interface
+				Clawping.fart_vr()
+		1:
+			
