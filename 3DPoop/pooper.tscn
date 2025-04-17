@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr0stt8eswiql"]
+
+[ext_resource type="ArrayMesh" uid="uid://bkvmtw7nhycgp" path="res://3DPoop/models/hand.obj" id="1_sj53q"]
+
+[node name="Pooper" type="Node3D"]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+current = true
+
+[node name="Head" type="XRCamera3D" parent="XROrigin3D"]
+fov = 80.3
+
+[node name="Right" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Right"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0.75, -1, 0)
+mesh = ExtResource("1_sj53q")
+skeleton = NodePath("")
+
+[node name="Left" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Left"]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, -0.75, -1, 0)
+mesh = ExtResource("1_sj53q")
+skeleton = NodePath("")
