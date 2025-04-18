@@ -1,29 +1,30 @@
 extends Node
 # root
-var rot = get_tree().root
+signal farted
 # if in vr
 var vr:bool = false
 var v
 var player:Pooper
 var target
 # Do vr
-func fart_vr():
-	var viewport = get_viewport()
-	viewport.hdr = false
-	Engine.max_fps = 120
-	
+var farter:bool=false
+var fir_fart:bool=false
+var fartface:XRInterface
 
-	if v.initialize():
-		print("Failed to initialize VR!")
-		return	
-	viewport.arvr = true
+func fart_vr():
+	fartface = v
+	if fartface and fartface.is_initialized():
+		print("The fart is real")
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+		get_viewport().use_xr = true
+	else: print("No fart :_(")
 	set_keys()
-	var vr_av = load("res://3DPoop/pooper.tscn").instance()
-	rot.add_child(vr_av)
+	var vr_av = load("res://3DPoop/pooper.tscn").instantiate()
+	get_tree().root.add_child(vr_av)
 	vr_av.name = "Pooper"
 	player = vr_av
-	target = "res://vr/sel.tscn"
-	get_tree().change_scene("res://3DPoop/load.tscn")
+	target = "res://3DPoop/sel.tscn"
+	get_tree().change_scene_to_file("res://3DPoop/loaders/loadm.tscn")
 
 func set_keys():
 	
@@ -39,17 +40,14 @@ func set_keys():
 	ev.action = "by_button"
 	InputMap.action_add_event("back", ev)
 	
-	ev = InputEventJoypadMotion.new()
-	ev.axis = "aim_pose"
-	InputMap.action_add_event("aim", ev)
+	#ev = InputEventAction.new()
+	#ev.axis = "aim_pose"
+	#InputMap.action_add_event("aim", ev)
 	
 #Main
-func fart(s:int):
-	match(s):
-		0:
-			var interface = XRServer.find_interface("OpenVR")
-			if interface:
-				v = interface
-				Clawping.fart_vr()
-		1:
-			
+func fart():
+	emit_signal("farted","Loading Pooper!!!")	
+	var interface = XRServer.find_interface("OpenVR")
+	v = interface
+	Clawping.fart_vr()
+	emit_signal("farted","Hello Pooper!!!11")	
