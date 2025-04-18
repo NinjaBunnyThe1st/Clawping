@@ -20,7 +20,9 @@ func fart_vr():
 	else: print("No fart :_(")
 	set_keys()
 	var vr_av = load("res://3DPoop/pooper.tscn").instantiate()
-	get_tree().root.add_child(vr_av)
+	var y=await get_tree().root.add_child.call_deferred(vr_av)
+	if y==OK:
+		print("nice")
 	vr_av.name = "Pooper"
 	player = vr_av
 	target = "res://3DPoop/sel.tscn"
@@ -47,7 +49,8 @@ func set_keys():
 #Main
 func fart():
 	emit_signal("farted","Loading Pooper!!!")	
-	var interface = XRServer.find_interface("OpenVR")
+	var interface = XRServer.find_interface("OpenXR")
+	interface.initialize()
 	v = interface
 	Clawping.fart_vr()
 	emit_signal("farted","Hello Pooper!!!11")	

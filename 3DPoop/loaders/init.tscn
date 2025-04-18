@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://o6s3v8sipkti" path="res://icon.svg" id="2_mwkdx"]
 
 [sub_resource type="Environment" id="Environment_prnqo"]
-background_energy_multiplier = 0.0
+background_energy_multiplier = 2.1
+ambient_light_color = Color(0.637843, 0.637843, 0.637843, 1)
 
 [node name="init" type="Node3D"]
 script = ExtResource("1_xek5q")
