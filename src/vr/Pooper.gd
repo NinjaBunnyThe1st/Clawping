@@ -30,10 +30,13 @@ func _ready():
 	right_ray = $XROrigin3D/Right/RayCast3D
 	update_primary_ray()
 	set_process(true)
-
-func _process(_delta):
-	if Input.is_action_just_pressed("sh"):
+	left_hand.connect("button_pressed",shi)
+	right_hand.connect("button_pressed",shi)
+func shi(e):
+	if e=="trigger_click":
 		Clawping.lefth = !Clawping.lefth
 		update_primary_ray()
+	
+func _process(_delta):
 	primary_ray.force_raycast_update()
 	primary_ray.update_beam()

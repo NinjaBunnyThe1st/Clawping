@@ -20,7 +20,7 @@ func _physics_process(_delta):
 	if Clawping.player.climbing and is_climbing:
 		var hand_delta = global_transform.origin - initial_hand_position
 		player_body.global_transform = Transform3D.IDENTITY.translated(
-			initial_player_position + hand_delta
+			initial_player_position + -(hand_delta/3)
 		)
 	if fall and !Clawping.player.on_fl:
 		var the = player_body.global_position - Vector3(0,0.05,0)
@@ -33,6 +33,7 @@ func _on_trigger_pressed(t):
 		if Clawping.player.climbing:
 			print("real")
 			is_climbing = true
+			Clawping.player.primary_ray.enabled = false
 			initial_hand_position = global_transform.origin
 			initial_player_position = player_body.global_transform.origin
 
@@ -40,8 +41,9 @@ func _on_trigger_released(t):
 	if t=="trigger_click":
 		ti=false
 		is_climbing = false
-		if Clawping.player.climbing:
+		if !Clawping.player.climbing and !is_climbing:
 			fall = true
+			Clawping.player.primary_ray.enabled = true
 
 
 

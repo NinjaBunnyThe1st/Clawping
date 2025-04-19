@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://ovbofh8v4vef"]
+[gd_scene load_steps=21 format=3 uid="uid://ovbofh8v4vef"]
 
 [ext_resource type="Script" uid="uid://choq1l84bvibi" path="res://src/poop/loadm.gd" id="1_efx58"]
 [ext_resource type="Texture2D" uid="uid://cmnraveh5cqo3" path="res://2DPoop/floor.jpg" id="2_21gra"]
+[ext_resource type="Script" uid="uid://bq8ih2sro5hdu" path="res://3DPoop/loaders/area_3d.gd" id="2_ytxnv"]
 [ext_resource type="Texture2D" uid="uid://o6s3v8sipkti" path="res://icon.svg" id="3_3fdjs"]
 [ext_resource type="Script" uid="uid://db6ooibkhxv7v" path="res://src/poop/menu.gd" id="4_21gra"]
 [ext_resource type="Script" uid="uid://dpcs0po41l8xl" path="res://3DPoop/loaders/area_3d_2.gd" id="5_3fdjs"]
@@ -47,7 +48,8 @@ point_size = 128.0
 lightmap_size_hint = Vector2i(14, 21)
 material = SubResource("ORMMaterial3D_efx58")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3fdjs"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_smfey"]
+size = Vector3(6, 2, 6)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_21gra"]
 viewport_path = NodePath("Menu/MenuVP")
@@ -80,6 +82,7 @@ script = ExtResource("1_efx58")
 environment = SubResource("Environment_s66fy")
 
 [node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("2_ytxnv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 transform = Transform3D(100, 0, 0, 0, 0.2, 0, 0, 0, 100, 0, -0.2, 0)
@@ -87,9 +90,9 @@ gi_mode = 0
 mesh = SubResource("BoxMesh_21gra")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(100, 0, 0, 0, 0.2, 0, 0, 0, 100, 0, -0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 1.5)
 top_level = true
-shape = SubResource("BoxShape3D_3fdjs")
+shape = SubResource("BoxShape3D_smfey")
 
 [node name="Menu" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
@@ -146,5 +149,7 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
 shape = SubResource("BoxShape3D_ytxnv")
 
+[connection signal="area_entered" from="Area3D" to="Area3D" method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D" to="Area3D" method="_on_area_exited"]
 [connection signal="area_shape_entered" from="climbable" to="climbable" method="_on_area_shape_entered"]
 [connection signal="area_shape_exited" from="climbable" to="climbable" method="_on_area_shape_exited"]
