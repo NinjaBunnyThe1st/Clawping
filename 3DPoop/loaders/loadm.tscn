@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://ovbofh8v4vef"]
+[gd_scene load_steps=20 format=3 uid="uid://ovbofh8v4vef"]
 
 [ext_resource type="Script" uid="uid://choq1l84bvibi" path="res://src/poop/loadm.gd" id="1_efx58"]
 [ext_resource type="Texture2D" uid="uid://cmnraveh5cqo3" path="res://2DPoop/floor.jpg" id="2_21gra"]
 [ext_resource type="Texture2D" uid="uid://o6s3v8sipkti" path="res://icon.svg" id="3_3fdjs"]
 [ext_resource type="Script" uid="uid://db6ooibkhxv7v" path="res://src/poop/menu.gd" id="4_21gra"]
+[ext_resource type="Script" uid="uid://dpcs0po41l8xl" path="res://3DPoop/loaders/area_3d_2.gd" id="5_3fdjs"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kjmk4"]
 
@@ -70,6 +71,8 @@ albedo_texture = SubResource("ImageTexture_21gra")
 [sub_resource type="BoxMesh" id="BoxMesh_3fdjs"]
 material = SubResource("StandardMaterial3D_ytxnv")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ytxnv"]
+
 [node name="Loadm" type="Node3D"]
 script = ExtResource("1_efx58")
 
@@ -128,6 +131,20 @@ mesh = SubResource("QuadMesh_ytxnv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -3)
 shape = SubResource("BoxShape3D_21gra")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="climbable" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("5_3fdjs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="climbable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
+layers = 2
 mesh = SubResource("BoxMesh_3fdjs")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="climbable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
+shape = SubResource("BoxShape3D_ytxnv")
+
+[connection signal="area_shape_entered" from="climbable" to="climbable" method="_on_area_shape_entered"]
+[connection signal="area_shape_exited" from="climbable" to="climbable" method="_on_area_shape_exited"]

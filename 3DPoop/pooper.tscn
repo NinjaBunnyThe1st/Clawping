@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr0stt8eswiql"]
+[gd_scene load_steps=7 format=3 uid="uid://dr0stt8eswiql"]
 
 [ext_resource type="Script" uid="uid://wavomngjhge0" path="res://src/vr/Pooper.gd" id="1_3ctet"]
 [ext_resource type="ArrayMesh" uid="uid://bkvmtw7nhycgp" path="res://3DPoop/models/hand.obj" id="1_sj53q"]
@@ -9,6 +9,9 @@
 top_radius = 0.001
 bottom_radius = 0.01
 height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m8uqi"]
+radius = 1.0
 
 [node name="Pooper" type="Node3D"]
 script = ExtResource("1_3ctet")
@@ -38,6 +41,12 @@ script = ExtResource("3_p0oeh")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.25)
 mesh = SubResource("CylinderMesh_m8uqi")
 
+[node name="h" type="Area3D" parent="XROrigin3D/Right"]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Right/h"]
+shape = SubResource("SphereShape3D_m8uqi")
+
 [node name="Left" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
 script = ExtResource("2_m8uqi")
@@ -56,3 +65,12 @@ script = ExtResource("3_p0oeh")
 [node name="Beam" type="MeshInstance3D" parent="XROrigin3D/Left/RayCast3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.25)
 mesh = SubResource("CylinderMesh_m8uqi")
+
+[node name="h" type="Area3D" parent="XROrigin3D/Left"]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Left/h"]
+shape = SubResource("SphereShape3D_m8uqi")
+
+[connection signal="body_shape_entered" from="XROrigin3D/Right/h" to="XROrigin3D/Right" method="_on_h_body_shape_entered"]
+[connection signal="body_shape_entered" from="XROrigin3D/Left/h" to="XROrigin3D/Left" method="_on_h_body_shape_entered"]

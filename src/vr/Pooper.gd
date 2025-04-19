@@ -7,7 +7,8 @@ class_name Pooper
 @onready var left_ray:RayCast3D 
 @onready var right_hand:XRController3D 
 @onready var right_ray:RayCast3D
-
+@onready var climbing:bool = false
+@onready var on_fl:bool = true
 var primary_ray:RayCast3D
 
 func update_primary_ray():
@@ -29,14 +30,7 @@ func _ready():
 	right_ray = $XROrigin3D/Right/RayCast3D
 	update_primary_ray()
 	set_process(true)
-func setR(r):
-	var radians = deg_to_rad(r)
-	var ror = $Origin/RightHand.rotation
-	var rol = $Origin/LeftHand.rotation 
-	var rotatio = Vector3( 1*radians+ror.x,ror.y, ror.z)
-	$Origin/RightHand.rotation = rotation
-	rotatio = Vector3( 1*radians+rol.x,rol.y, rol.z)
-	$Origin/LeftHand.rotation = rotation
+
 func _process(_delta):
 	if Input.is_action_just_pressed("sh"):
 		Clawping.lefth = !Clawping.lefth

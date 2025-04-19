@@ -6,7 +6,6 @@ var last_screen_pos:Vector2 = Vector2(0,0)
 var active:bool = false # Cursor is on this screen
 
 func _input(event: InputEvent):
-	print(event)
 	if active:
 		if Input.is_action_just_pressed("click"):
 			var ev:InputEventMouseButton = InputEventMouseButton.new()
