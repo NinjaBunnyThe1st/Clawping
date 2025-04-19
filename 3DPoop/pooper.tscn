@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr0stt8eswiql"]
+[gd_scene load_steps=6 format=3 uid="uid://dr0stt8eswiql"]
 
+[ext_resource type="Script" uid="uid://wavomngjhge0" path="res://src/vr/Pooper.gd" id="1_3ctet"]
 [ext_resource type="ArrayMesh" uid="uid://bkvmtw7nhycgp" path="res://3DPoop/models/hand.obj" id="1_sj53q"]
+[ext_resource type="Script" uid="uid://be6cvwg6tu8r1" path="res://src/vr/right.gd" id="2_m8uqi"]
+[ext_resource type="Script" uid="uid://dwandwvaoh7kd" path="res://src/vr/ray_cast_3d.gd" id="3_p0oeh"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m8uqi"]
+top_radius = 0.001
+bottom_radius = 0.01
+height = 0.5
 
 [node name="Pooper" type="Node3D"]
+script = ExtResource("1_3ctet")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 current = true
@@ -12,16 +21,38 @@ fov = 80.3
 
 [node name="Right" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
+script = ExtResource("2_m8uqi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Right"]
-transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, 0, 0)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 mesh = ExtResource("1_sj53q")
 skeleton = NodePath("")
+
+[node name="RayCast3D" type="RayCast3D" parent="XROrigin3D/Right"]
+enabled = false
+target_position = Vector3(0, 0, -36)
+collide_with_areas = true
+script = ExtResource("3_p0oeh")
+
+[node name="Beam" type="MeshInstance3D" parent="XROrigin3D/Right/RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.25)
+mesh = SubResource("CylinderMesh_m8uqi")
 
 [node name="Left" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
+script = ExtResource("2_m8uqi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Left"]
-transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 mesh = ExtResource("1_sj53q")
 skeleton = NodePath("")
+
+[node name="RayCast3D" type="RayCast3D" parent="XROrigin3D/Left"]
+enabled = false
+target_position = Vector3(0, 0, -36)
+collide_with_areas = true
+script = ExtResource("3_p0oeh")
+
+[node name="Beam" type="MeshInstance3D" parent="XROrigin3D/Left/RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.25)
+mesh = SubResource("CylinderMesh_m8uqi")

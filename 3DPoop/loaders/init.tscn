@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://o6s3v8sipkti" path="res://icon.svg" id="2_mwkdx"]
 
 [sub_resource type="Environment" id="Environment_prnqo"]
-background_energy_multiplier = 2.1
+background_energy_multiplier = 1.75
 ambient_light_color = Color(0.637843, 0.637843, 0.637843, 1)
+ambient_light_energy = 16.0
 
 [node name="init" type="Node3D"]
 script = ExtResource("1_xek5q")
@@ -15,7 +16,6 @@ environment = SubResource("Environment_prnqo")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 use_xr = true
-handle_input_locally = false
 gui_disable_input = true
 size = Vector2i(0, 0)
 size_2d_override = Vector2i(128, 128)

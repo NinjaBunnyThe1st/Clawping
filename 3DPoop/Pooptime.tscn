@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dagfxqoaa25vt"]
+
+[sub_resource type="AudioStream" id="AudioStream_qeahg"]
+
+[node name="Pooptime" type="Node3D"]
+
+[node name="ev" type="WorldEnvironment" parent="."]
+
+[node name="start" type="MeshInstance3D" parent="."]
+
+[node name="end" type="MeshInstance3D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStream_qeahg")
