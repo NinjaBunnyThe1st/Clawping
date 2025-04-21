@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ovbofh8v4vef"]
+[gd_scene load_steps=20 format=3 uid="uid://ovbofh8v4vef"]
 
 [ext_resource type="Script" uid="uid://choq1l84bvibi" path="res://src/poop/loadm.gd" id="1_efx58"]
 [ext_resource type="Texture2D" uid="uid://cmnraveh5cqo3" path="res://2DPoop/floor.jpg" id="2_21gra"]
@@ -65,15 +65,14 @@ material = SubResource("StandardMaterial3D_3fdjs")
 [sub_resource type="BoxShape3D" id="BoxShape3D_21gra"]
 size = Vector3(4, 2, 1)
 
-[sub_resource type="ImageTexture" id="ImageTexture_21gra"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytxnv"]
-albedo_texture = SubResource("ImageTexture_21gra")
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3fdjs"]
 material = SubResource("StandardMaterial3D_ytxnv")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ytxnv"]
+size = Vector3(1, 4, 1)
 
 [node name="Loadm" type="Node3D"]
 script = ExtResource("1_efx58")
@@ -135,21 +134,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -3)
 shape = SubResource("BoxShape3D_21gra")
 
 [node name="climbable" type="Area3D" parent="."]
-collision_layer = 3
-collision_mask = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+collision_mask = 2
 script = ExtResource("5_3fdjs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="climbable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 4.96, 0, 0, 0, 1, -1, 1, 1)
 layers = 2
 mesh = SubResource("BoxMesh_3fdjs")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="climbable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.45, 1)
 shape = SubResource("BoxShape3D_ytxnv")
+
+[node name="climbable2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("5_3fdjs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="climbable2"]
+transform = Transform3D(1, 0, 0, 0, 4.96, 0, 0, 0, 1, -1, 1, 1)
+layers = 2
+mesh = SubResource("BoxMesh_3fdjs")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="climbable2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.45, 1)
+shape = SubResource("BoxShape3D_ytxnv")
+
+[node name="audio" type="AudioStreamPlayer" parent="."]
 
 [connection signal="area_entered" from="Area3D" to="Area3D" method="_on_area_entered"]
 [connection signal="area_exited" from="Area3D" to="Area3D" method="_on_area_exited"]
 [connection signal="area_shape_entered" from="climbable" to="climbable" method="_on_area_shape_entered"]
 [connection signal="area_shape_exited" from="climbable" to="climbable" method="_on_area_shape_exited"]
+[connection signal="area_shape_entered" from="climbable2" to="climbable2" method="_on_area_shape_entered"]
+[connection signal="area_shape_exited" from="climbable2" to="climbable2" method="_on_area_shape_exited"]

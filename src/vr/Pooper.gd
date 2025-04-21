@@ -7,8 +7,13 @@ class_name Pooper
 @onready var left_ray:RayCast3D 
 @onready var right_hand:XRController3D 
 @onready var right_ray:RayCast3D
+@onready var audio:AudioStreamPlayer
 @onready var climbing:bool = false
+@onready var real:bool = false
 @onready var on_fl:bool = true
+@onready var rhc:bool = false
+@onready var lhc:bool = false
+
 var primary_ray:RayCast3D
 
 func update_primary_ray():
@@ -28,15 +33,26 @@ func _ready():
 	left_ray= $XROrigin3D/Left/RayCast3D
 	right_hand = $XROrigin3D/Right
 	right_ray = $XROrigin3D/Right/RayCast3D
+	audio = $audio
 	update_primary_ray()
 	set_process(true)
 	left_hand.connect("button_pressed",shi)
 	right_hand.connect("button_pressed",shi)
+	climbing = false
+	origin._rph()
 func shi(e):
-	if e=="trigger_click":
+	if e=="ax_button":
 		Clawping.lefth = !Clawping.lefth
 		update_primary_ray()
 	
 func _process(_delta):
 	primary_ray.force_raycast_update()
 	primary_ray.update_beam()
+func playsfx(s:String = "") -> void:
+	match(s):
+		"hit":
+			audio.stream = AudioStreamMP3.load_from_file("res://Poop/sfx/csfx")
+		"rel":
+			audio.stream = AudioStreamMP3.load_from_file("res://Poop/sfx/release")
+	audio.play()
+	audio.stream = null

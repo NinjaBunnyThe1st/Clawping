@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wavomngjhge0" path="res://src/vr/Pooper.gd" id="1_3ctet"]
 [ext_resource type="ArrayMesh" uid="uid://bkvmtw7nhycgp" path="res://3DPoop/models/hand.obj" id="1_sj53q"]
-[ext_resource type="Script" uid="uid://be6cvwg6tu8r1" path="res://src/vr/right.gd" id="2_m8uqi"]
+[ext_resource type="Script" uid="uid://dlwcnvssjdsyv" path="res://3DPoop/claw.gd" id="2_m8uqi"]
 [ext_resource type="Script" uid="uid://dwandwvaoh7kd" path="res://src/vr/ray_cast_3d.gd" id="3_p0oeh"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_m8uqi"]
@@ -18,13 +18,13 @@ script = ExtResource("1_3ctet")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 current = true
+script = ExtResource("2_m8uqi")
 
 [node name="Head" type="XRCamera3D" parent="XROrigin3D"]
 fov = 80.3
 
 [node name="Right" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
-script = ExtResource("2_m8uqi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Right"]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
@@ -43,13 +43,13 @@ mesh = SubResource("CylinderMesh_m8uqi")
 
 [node name="h" type="Area3D" parent="XROrigin3D/Right"]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Right/h"]
 shape = SubResource("SphereShape3D_m8uqi")
 
 [node name="Left" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
-script = ExtResource("2_m8uqi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Left"]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
@@ -68,9 +68,12 @@ mesh = SubResource("CylinderMesh_m8uqi")
 
 [node name="h" type="Area3D" parent="XROrigin3D/Left"]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Left/h"]
 shape = SubResource("SphereShape3D_m8uqi")
+
+[node name="audio" type="AudioStreamPlayer" parent="."]
 
 [connection signal="body_shape_entered" from="XROrigin3D/Right/h" to="XROrigin3D/Right" method="_on_h_body_shape_entered"]
 [connection signal="body_shape_entered" from="XROrigin3D/Left/h" to="XROrigin3D/Left" method="_on_h_body_shape_entered"]
