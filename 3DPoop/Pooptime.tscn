@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dagfxqoaa25vt"]
+[gd_scene load_steps=3 format=3 uid="uid://dagfxqoaa25vt"]
+
+[ext_resource type="Script" uid="uid://dhjxer2fli7td" path="res://src/poop/pooptime.gd" id="1_px23x"]
 
 [sub_resource type="AudioStream" id="AudioStream_qeahg"]
 
 [node name="Pooptime" type="Node3D"]
+script = ExtResource("1_px23x")
 
 [node name="ev" type="WorldEnvironment" parent="."]
 

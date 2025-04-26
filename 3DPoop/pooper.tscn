@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dr0stt8eswiql"]
+[gd_scene load_steps=8 format=3 uid="uid://dr0stt8eswiql"]
 
-[ext_resource type="Script" uid="uid://wavomngjhge0" path="res://src/vr/Pooper.gd" id="1_3ctet"]
+[ext_resource type="Script" uid="uid://wavomngjhge0" path="res://src/poop/Pooper.gd" id="1_3ctet"]
 [ext_resource type="ArrayMesh" uid="uid://bkvmtw7nhycgp" path="res://3DPoop/models/hand.obj" id="1_sj53q"]
-[ext_resource type="Script" uid="uid://dlwcnvssjdsyv" path="res://3DPoop/claw.gd" id="2_m8uqi"]
-[ext_resource type="Script" uid="uid://dwandwvaoh7kd" path="res://src/vr/ray_cast_3d.gd" id="3_p0oeh"]
+[ext_resource type="Script" uid="uid://dlwcnvssjdsyv" path="res://src/ihatemath/claw.gd" id="2_m8uqi"]
+[ext_resource type="Script" uid="uid://dwandwvaoh7kd" path="res://src/ihatemath/ray_cast_3d.gd" id="3_p0oeh"]
+[ext_resource type="ArrayMesh" uid="uid://e633qo55inqf" path="res://3DPoop/models/the_pooper_in_all_its_glory.obj" id="3_w5fb6"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_m8uqi"]
 top_radius = 0.001
@@ -22,6 +23,10 @@ script = ExtResource("2_m8uqi")
 
 [node name="Head" type="XRCamera3D" parent="XROrigin3D"]
 fov = 80.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Head"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.03, -0.4, 0.57)
+mesh = ExtResource("3_w5fb6")
 
 [node name="Right" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
@@ -72,6 +77,8 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/Left/h"]
 shape = SubResource("SphereShape3D_m8uqi")
+
+[node name="Poop" type="MeshInstance3D" parent="XROrigin3D"]
 
 [node name="audio" type="AudioStreamPlayer" parent="."]
 

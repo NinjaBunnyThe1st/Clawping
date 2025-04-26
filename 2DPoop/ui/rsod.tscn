@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://drw60reo7nhr3"]
+
+[ext_resource type="FontFile" uid="uid://7epo6lm51dxp" path="res://2DPoop/fonts/CoralPixels-Regular.ttf" id="1_5n6n0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5n6n0"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ckr77"]
+font = ExtResource("1_5n6n0")
+font_size = 83
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dciik"]
+font = ExtResource("1_5n6n0")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_jo53b"]
+font = ExtResource("1_5n6n0")
+font_size = 36
+
+[node name="Rsod" type="Sprite3D"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 1.08, -0.3)
+texture = SubResource("ViewportTexture_5n6n0")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(800, 400)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+offset_right = 812.0
+offset_bottom = 400.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="SubViewport/ColorRect"]
+layout_mode = 0
+offset_right = 805.0
+offset_bottom = 112.0
+text = "Red Screen Of Death"
+label_settings = SubResource("LabelSettings_ckr77")
+
+[node name="Label2" type="Label" parent="SubViewport/ColorRect"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 340.0
+offset_right = 1603.0
+offset_bottom = 553.0
+text = "Report to @chomik_of_babel In \"Discord\""
+label_settings = SubResource("LabelSettings_dciik")
+
+[node name="Error" type="Label" parent="SubViewport/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 106.0
+offset_right = 810.0
+offset_bottom = 222.0
+text = "Error:"
+label_settings = SubResource("LabelSettings_jo53b")
