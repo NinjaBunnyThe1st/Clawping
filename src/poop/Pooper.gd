@@ -51,8 +51,8 @@ func _process(_delta):
 func playsfx(s:String = "") -> void:
 	match(s):
 		"hit":
-			audio.stream = AudioStreamMP3.load_from_file("res://Poop/sfx/csfx")
+			audio.stream = AudioStreamMP3.load_from_file("res://Poop/sfx/csfx.mp3")
 		"rel":
-			audio.stream = AudioStreamMP3.load_from_file("res://Poop/sfx/release")
+			audio.stream = AudioStreamMP3.load_from_file("res://Poop/sfx/release.mp3")
 	audio.play()
-	audio.stream = null
+	
